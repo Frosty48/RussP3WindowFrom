@@ -22,24 +22,18 @@ namespace RussP3WindowForm
         private string textEngrave = " ";
         private string results = " ";
         private string itemType = "";
-        //private double totalSpent= 0;
+        
 
+
+
+        ///////////////////Properties//////////////////////
+        ///all of the ones that return something will have a function in the form
         public bool HasLogo
         {
             get { return hasLogo; }
             set { hasLogo = value; CalculatePrice(); }
         }
 
-        public string OrderId 
-        { 
-            get;
-            set; 
-        }
-        public string ItemType
-        {
-            get { return itemType; }
-            set { itemType = value; CalculatePrice(); }
-        }
 
         public int NumColors
         {
@@ -53,18 +47,12 @@ namespace RussP3WindowForm
             set { numItems = value; CalculatePrice(); }
         }
 
+
         public double[] Price
         {
             get { return price; }
             set { price = value; CalculatePrice(); }
         }
-
-        public double TotalSpent 
-        {
-            get;
-            set;
-        }
-
 
         public string TextEngrave
         {
@@ -72,11 +60,32 @@ namespace RussP3WindowForm
             set { textEngrave = value; CalculatePrice(); }
         }
 
+
+        public string ItemType
+        {
+            get { return itemType; }
+            set { itemType = value; CalculatePrice(); }
+        }
+        
         public string Results
         {
             get { return results; }
             set { results = value; CalculatePrice(); }
         }
+
+        public double TotalSpent
+        {
+            get;
+            set;
+        }
+
+        public string OrderId
+        {
+            get;
+            set;
+        }
+
+
 
         public LogoOrderItem()
         {
@@ -96,16 +105,17 @@ namespace RussP3WindowForm
             Price = price;
         }
 
-        //Methods
+        ////////////////////Methods//////////////////////////
 
         private void CalculatePrice()
         {
-            double logoPrice = 0.10;
+            
+            double logoPrice=0.0;
 
-            double engravingPrice = 0.05;
+            double engravingPrice=0.0;
 
             // Base price for the item type
-            double basePrice = 0.0;
+            double basePrice=0;
 
             // Additional price for colors
             double colorPrice = 0.0;
@@ -118,29 +128,31 @@ namespace RussP3WindowForm
             {
                 basePrice = 4.0;
             }
-            else if (itemType== "Pen")
+            else if (itemType == "Pen")
             {
                 basePrice = 1.0;
             }
 
-            if (HasLogo==true)
+            if (numColors > 0)
             {
                 // Calculate additional price for colors
-                colorPrice = numColors * 1.5;
+                colorPrice = numColors * 0.03;
             }
-            if (textEngrave != null) {
+            if (string.IsNullOrEmpty(textEngrave))//textEngrave !=null doesnt work
+            {
 
-                engravingPrice+=engravingPrice*numItems;
+                engravingPrice = 0.05 * numItems;
             }
-            if (hasLogo == true) {
+            if (hasLogo == true)
+            {
 
-                logoPrice = logoPrice * numItems;
+                logoPrice = 0.10 * numItems;
+
+            }
             
-            }
-
             // Calculate the total price
-            TotalSpent = (basePrice + colorPrice + engravingPrice  + logoPrice);
-            //GetOrderSummary()
+            TotalSpent = ((basePrice* numItems) + colorPrice + engravingPrice + logoPrice) ;
+            
         }
 
 
@@ -152,7 +164,7 @@ namespace RussP3WindowForm
                    "\r\nYou picked " + NumColors + " total number of colors" +
                    "\r\n Your engraving you want " + TextEngrave +
                    "\r\nThe total is " + TotalSpent +
-                   "\r\n results: ";
+                   "\r\n\n\n\n Good bye: ";
             return summary;
         }
     }

@@ -60,9 +60,12 @@ namespace RussP3WindowForm
                     itemList = "blank";
                 }
 
-
+                
                 // Set properties of the LogoOrderItem instance
                 LogoOrderItem logoOrderItem = new LogoOrderItem(txbOrderNumber.Text, itemList, txbEngrave.Text, txbResults.Text);
+
+
+                logoOrderItem.NumItems = int.Parse(txbNumberOfItems.Text);
                 logoOrderItem.OrderId = txbOrderNumber.Text;
                 logoOrderItem.ItemType = itemList;
                 logoOrderItem.TextEngrave = txbEngrave.Text;
